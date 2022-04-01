@@ -1,0 +1,25 @@
+{% extends "style.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% for row in post %}
+<h2>{{row.title}}</h2>
+<img src="{{row.image}}" >
+<p><i>" {{row.description}} "</i></p>
+<p>Theme: {{row.theme}}</p>
+<p>Tags: 
+{% for item in row.tag %}
+    #{{item}} 
+{% endfor %}
+</p>
+<p>Address: {{row.address}}, {{row.city}}, {{row.state}}</p>
+{% endfor %}
+<a href="/dashboard" >Go to Dashboard</a>
+</body>
+</html>
+{% endblock %}

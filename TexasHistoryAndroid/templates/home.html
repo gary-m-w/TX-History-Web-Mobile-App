@@ -1,0 +1,27 @@
+<head>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/normalize.css">
+</head>
+    <div class ="card-wrapper">
+        <div class="card">
+            <h1 class="center">Create an account</h1>
+
+            <br>
+
+            <h4 style="color: red;">{{error}}</h4>
+                 
+            <br>
+            <form action="/signup_form" method="POST">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="field" required>
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" class="field" required pattern="[^@]+@[^@]+\.[a-zA-Z]{2,6}">
+
+                <label for="pwd">Password</label>
+                <input type="password" name="pwd" id="pwd" class="field" required>
+
+                <input type="submit" value="submit" class="btn">
+            </form>
+        </div>
+    </div>

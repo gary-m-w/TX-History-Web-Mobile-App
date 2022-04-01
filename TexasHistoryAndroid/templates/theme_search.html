@@ -1,0 +1,48 @@
+{% extends "style.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<form class="d-flex" action="/theme_search" method="POST">
+    <div class="row">
+        <div class="col-lg-6">
+            <br>
+                <!-- <input class="form-control me-2" id="search_theme" name="search_theme" type="search" placeholder="Search posts by themes" aria-label="Search">-->
+                <select name="search_theme" id="search_theme"  class="form-control me-2">
+                    {% for one_theme in theme %}
+                        <option value="{{one_theme.label}}">{{one_theme.label}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        <div class="col-lg-3">
+            <br>
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </div>
+    </div>
+</form>
+
+</head>
+<body>
+    <form action="/unsubscribe" method="POST">
+        Unsubscribe:<input type="submit" class="btn btn-info" value="{{search_theme}}" id="{{search_theme}}" name ="search_theme" style="margin: 0px;">
+    </form> <br>
+
+        {% for post in all_posts%}
+            <div class="card text-center border-primary mb-3" style="width: 18rem;">
+          <h5 class="card-header" style="font-weight:900;">{{post.title}}</h5>
+            <img src="{{post.image}}" class="card-img-top">
+            <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">{{post.theme}}</h6>
+            {% for tag in post.tag %}
+                <p class="card-text">#{{tag}}</p>
+            {% endfor %}
+            <a href="/details/{{post._id}}" class="btn btn-primary">See Details</a>
+            </div>
+      </div>
+        {% endfor %}
+
+</body>
+</html>
+{% endblock %}

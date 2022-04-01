@@ -1,0 +1,14 @@
+{% extends "style.html" %}
+{% block content %}
+<html>
+<head>
+    <title>map</title>
+     {{mymap.js}}
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAjrVBxmhis9XRZ4f3fspvlOCKeKt6dIk&libraries=places&callback=initMap&channel=GMPSB_addressselection_v1_cA" async defer></script>
+</head>
+<body>
+    <h2>First map generated in view</h2>
+        {{mymap.html}}
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "style.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <h1> Themes: </h1>
+        <form class="d-flex" action="/theme_search" method="POST">
+            <div class="row">
+                <div class="col-lg-6">
+                    <br>
+                        <!--<input class="form-control me-2" id="search_theme" name="search_theme" type="search" placeholder="Search posts by themes" aria-label="Search">-->
+                        <select name="search_theme" id="search_theme"  class="form-control me-2">
+                            {% for one_theme in theme %}
+                                <option value="{{one_theme.label}}">{{one_theme.label}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                <div class="col-lg-3">
+                    <br>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
+                <div class="col-lg-3">
+                    <br>
+                    {% if admin_access|length > 0 %}
+                        <a href="/new_theme" class="btn btn-info">Add a theme</a>
+                    {% endif %}
+                </div>
+            </div>
+        </form>
+    </head>
+    <body>
+        <ul>
+
+            {% for theme in all_themes%}
+                <li style="text-align: center;">
+                    <img src="{{theme.cover}}" ><br>
+                    <form action="/theme_search" method="POST">
+                        View all:<input type="submit" style="text-align: center;" class="btn btn-info" value="{{theme.label}}" name ="search_theme" style="margin: 0px;">
+                    </form>
+                    <form action="/themes" method="POST">
+                        Subscribe:<input type="submit" style="text-align: center;" class="btn btn-info" value="{{theme.label}}" id="{{theme.label}}" name ="theme" style="margin: 0px;">
+                    </form>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </body>
+</html>
+{% endblock %}

@@ -1,0 +1,106 @@
+{% extends "style.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <h2>Enter details to create a new post: </h2>
+    <script>
+    "use strict";
+
+    function initMap() {
+      const componentForm = [
+        'location',
+        'locality',
+        'administrative_area_level_1',
+        'country',
+        'postal_code',
+      ];
+      const autocompleteInput = document.getElementById('location');
+      const autocomplete = new google.maps.places.Autocomplete(autocompleteInput);
+      autocomplete.addListener('place_changed', function () {
+        const place = autocomplete.getPlace();
+        if (!place.geometry) {
+          // User entered the name of a Place that was not suggested and
+          // pressed the Enter key, or the Place Details request failed.
+          window.alert('No details available for input: \'' + place.name + '\'');
+          return;
+        }
+        fillInAddress(place);
+      });
+
+      function fillInAddress(place) {  // optional parameter
+        const addressNameFormat = {
+          'street_number': 'short_name',
+          'route': 'long_name',
+          'locality': 'long_name',
+          'administrative_area_level_1': 'short_name',
+          'country': 'long_name',
+          'postal_code': 'short_name',
+        };
+        const getAddressComp = function (type) {
+          for (const component of place.address_components) {
+            if (component.types[0] === type) {
+              return component[addressNameFormat[type]];
+            }
+          }
+          return '';
+        };
+        document.getElementById('location').value = getAddressComp('street_number') + ' '
+                  + getAddressComp('route');
+        for (const component of componentForm) {
+          // Location field is handled separately above as it has different logic.
+          if (component !== 'location') {
+            document.getElementById(component).value = getAddressComp(component);
+          }
+        }
+      }
+    }
+    </script>
+</head>
+<body>
+<form action="/post" method="POST" enctype="multipart/form-data">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br><br>
+    
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" required><br><br>
+    
+    <label for="image">Choose a post picture:</label>
+    <input type="file" id="image" name="image" accept="images" required><br><br>
+
+    <label for="theme">Choose a theme:</label>
+    <select name="theme" id="theme">
+    {% for one_theme in themes %}
+        <option value="{{one_theme.label}}">{{one_theme.label}}</option>
+    {% endfor %}
+    </select><br><br>
+    <label for="tag">Type your tags (separate tags by a comma and space):</label>
+    <input type="text" id="tag" name="tag" required><br>
+    <br>
+    <div class="card-container">
+      <div class="panel">
+        <div>
+          <img class="sb-title-icon" src="https://fonts.gstatic.com/s/i/googlematerialicons/location_pin/v5/24px.svg" alt="">
+          <span class="sb-title">Select Address</span>
+        </div>
+        <input type="text" placeholder="Address" id="location" name="location" required/>
+        <input type="text" placeholder="Apt, Suite, etc (optional)"/>
+        <input type="text" placeholder="City" id="locality" name="locality" required/>
+        <div class="half-input-container">
+          <input type="text" class="half-input" placeholder="State/Province" id="administrative_area_level_1" name="administrative_area_level_1" required/>
+          <input type="text" class="half-input" placeholder="Zip/Postal code" id="postal_code"/>
+        </div>
+        <input type="text" placeholder="Country" id="country"/>
+      </div>
+    </div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCAjrVBxmhis9XRZ4f3fspvlOCKeKt6dIk&libraries=places&callback=initMap&channel=GMPSB_addressselection_v1_cA" async defer></script>
+    <br><br>
+    <input  class="btn btn-info" type="submit" value="Submit" style="margin: 0px;">
+    <br><br>
+</form>
+
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "style.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<title>Dashboard</title>
+<form class="d-flex" action="/dashboard" method="POST">
+ <div class="row">
+    <div class="col-sm-8">
+        <br>
+        
+            <input class="form-control me-2" id="search_tag" name="search_tag" type="search" placeholder="Search by tags" aria-label="Search">
+            <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+    </div>
+    <div class="col-sm-4">
+        <br>
+            <!-- <input class="form-control me-2" id="search_tag" name="search_tag" type="search" placeholder="Search by tags" aria-label="Search"> -->
+            <button class="btn btn-outline-success" type="submit">Search</button>
+         
+    </div>
+</div>
+</form>
+</head>
+<body>
+
+
+    {% for post in all_posts%}
+    <div class="container">
+      <div class="card text-center border-primary mb-3" style="width: 45rem;">
+          <h5 class="card-header" style="font-weight:900;">{{post.title}}</h5>
+          <div class="card-image">
+            <img src="{{post.image}}" class="card-img-top">
+              </div>
+            <div class="card-body">
+            <h6 class="card-subtitle mb-2 text-muted">{{post.theme}}</h6>
+            {% for tag in post.tag %}
+                <p class="card-text">#{{tag}}</p>
+            {% endfor %}
+            <a href="/details/{{post._id}}" class="btn btn-primary">See Details</a>
+            </div>
+      </div>
+        </div>
+    {% endfor %}
+
+
+
+</body>
+</html>
+{% endblock %}

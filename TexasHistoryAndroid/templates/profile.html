@@ -1,0 +1,51 @@
+{% extends "style.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="row">
+    <div class="column">
+    <h2>Your posts: </h2>
+
+        {% for post in posts%}
+            <div class="card text-center border-primary mb-3" style="width: 18rem;">
+                <h5 class="card-header" style="font-weight:900;">{{post.title}}</h5>
+                <img src="#" class="card-img-top">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">{{post.theme}}</h6>
+                    {% for tag in post.tag %}
+                        <p class="card-text">#{{tag}}</p>
+                    {% endfor %}
+                    <a href="/details/{{post._id}}" class="btn btn-primary">See Details</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="column">
+    <h2>Your Subscriptions: </h2>
+                <form class="d-flex" action="/theme_search" method="POST">
+                {% for one in find_user %}
+                    {% for one_theme in one.themes %}
+                        <input type="submit" class="btn btn-info" value="{{one_theme}}" id="{{one_theme}}" name="search_theme" >
+                    {% endfor %}
+                {% endfor %}
+    </form>
+    </div>
+<!--    {% for one in user %}-->
+<!--    <h2>Your subscriptions: {{one.themes}}</h2>-->
+<!--    <ul>-->
+<!--        {% for theme in one.themes%}-->
+<!--        <li>-->
+<!--            <a href="/details/{{post._id}}" class="btn btn-info">{{theme}}</a>-->
+<!--        </li>-->
+<!--        {% endfor %}-->
+<!--    </ul>-->
+<!--    {% endfor %}-->
+</div>
+</body>
+</html>
+{% endblock %}

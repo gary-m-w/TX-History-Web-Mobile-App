@@ -1,0 +1,22 @@
+{% extends "style.html" %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Theme</title>
+    <h1>Make a New Theme</h1>
+</head>
+<body>
+<form action="/new_theme" method="POST">
+    <label for="label">Theme name:</label><br>
+    <input type="text" id="label" name="label"><br>
+    <label for="image">Choose a cover picture:</label><br>
+    <input type="file" id="cover" name="cover" accept="image/png, image/jpeg"><br>
+
+    <br><br>
+    <input type="submit" value="Submit" style="margin: 0px;">
+</form>
+</body>
+</html>
+{% endblock %}

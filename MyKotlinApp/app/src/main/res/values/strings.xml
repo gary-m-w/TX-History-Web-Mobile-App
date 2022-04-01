@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Texas History</string>
+    <string name="textview">Hello post</string>
+
+    <string-array name="theme_list">
+        <item>Museum</item>
+        <item>Park</item>
+        <item>Building</item>
+        <item>Statue</item>
+        <item>Memorial</item>
+
+    </string-array>
+</resources>

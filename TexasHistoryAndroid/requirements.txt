@@ -1,0 +1,17 @@
+Flask==2.0.1
+pymongo==3.12.0
+dnspython==2.1.0
+google-cloud-storage==1.41.1
+gunicorn==20.0.4; python_version > '3.0'
+gunicorn==19.10.0; python_version < '3.0'
+passlib
+flask-GoogleMaps==0.4.0
+
+google-cloud-datastore==2.1.5
+google-auth==1.31.0
+requests==2.26.0
+
+mongoengine~=0.23.1
+pymongo~=3.12.0
+gcloud~=0.18.3
+passlib~=1.7.4
